@@ -1,11 +1,15 @@
 # -*- coding: UTF-8 -*-
 # 要在代码中使用"中文"注释，应该首先添加如上注释，说明是中文注释
 import json
+import logging
+import sys
+
 from scrapy import Spider, Selector
 from scrapy.http.request import Request
 
 from AdministrativeDivisions.pipelines import AdministrativeDivisionsPipeline
-from AdministrativeDivisions.settings import TABLE_PROVINCE, TABLE_CITY, TABLE_COUNTY, TABLE_TOWN, TABLE_VILLAGE
+from AdministrativeDivisions.settings import TABLE_PROVINCE, TABLE_CITY, TABLE_COUNTY, TABLE_TOWN, TABLE_VILLAGE, \
+    TABLE_PROVINCE2
 
 """错误提示："""
 # 1. 2019-01-30 23:48:22  从本项目的一个文件中导入此文件中的某一个类时，需要导入一个完整的路劲。否则提示：ImportError: No module named items
@@ -26,6 +30,7 @@ from AdministrativeDivisions.settings import TABLE_PROVINCE, TABLE_CITY, TABLE_C
 
 
 class NOSSpider(Spider):
+    print('>>> start')
     # 基础配置 - 唯一名称
     name = "NOS"
 
@@ -39,14 +44,13 @@ class NOSSpider(Spider):
     start_urls = ["http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/" + yearTarget + "/index.html"]
 
     # 将print中的内容输出到log文件中。
-    # sys.stdout = Logger('run_log')
+    # sys.stdout = Logger('log/log')
 
     """第一级：省级、直辖市 数据爬取"""
-
     def parse(self, response, m_year_target=yearTarget):
-        sel = Selector(response)
-        node = sel.xpath('//tr[@class="provincetr"]/td/a/text()')
-        node_href = sel.xpath('//tr[@class="provincetr"]/td/a/@href')
+        first = Selector(response)
+        node = first.xpath('//tr[@class="provincetr"]/td/a/text()')
+        node_href = first.xpath('//tr[@class="provincetr"]/td/a/@href')
 
         for item_node, item_node2 in zip(node, node_href):
             # 名称 ："山东省"
@@ -57,28 +61,28 @@ class NOSSpider(Spider):
             province_code = province_href[1:3]
 
             # ---- run_log ----
-            print("省级：" + province_name + ',' + province_code + ',' + province_href)
+            logging.debug("省级：" + province_name + ',' + province_code + ',' + province_href)
 
             self.insertIntoProvince(province_code, province_name)
             cl = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/" + m_year_target + "/" + province_href[1:8]
             yield Request(url=cl, callback=self.parse_second, dont_filter=True)
+        print('<<< end')
 
     def insertIntoProvince(self, province_code, province_name):
         # 将获取的数据插入到数据库中
         db = AdministrativeDivisionsPipeline()
-        sql = "insert into " + TABLE_PROVINCE + " (" + 'province_name,' + 'province_code,' + 'simple_province_code,' + 'grade' + ") VALUE (" + province_name + "," + province_code + '0000000000' + "," + province_code + "," + "1" + ")"
+        sql = "insert into " + TABLE_PROVINCE2 + " (" + 'province_name,' + 'province_code,' + 'simple_province_code,' + 'grade' + ") VALUE (" + province_name + "," + province_code + '0000000000' + "," + province_code + "," + "1" + ")"
         db.insertIntoTable(sql=sql)
 
     """第二级：地级市 数据爬取"""
-
     def parse_second(self, response, m_year_target=yearTarget):
         second = Selector(response)
         node_city = second.xpath('//tr[@class="citytr"]/td/a/text()')
 
         # ---- run_log ----
-        print("市级：")
-        print(len(node_city))
-        print("市级：" + json.dumps(node_city.extract(), ensure_ascii=False))
+        logging.debug("市级：")
+        logging.debug(len(node_city))
+        logging.debug("市级：" + json.dumps(node_city.extract(), ensure_ascii=False))
 
         node_city_href = second.xpath('//tr[@class="citytr"]/td/a/@href')
 
@@ -97,7 +101,7 @@ class NOSSpider(Spider):
         for item in city_href:
             cl = "http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/" + m_year_target + "/" + item[1:13]
             # 第三级url拼接
-            yield Request(url=cl, callback=self.parse_thread, dont_filter=True)
+            yield Request(url=cl, callback=self.parse_third, dont_filter=True)
 
     def insertToCity(self, node_city):
         # 循环赋值
@@ -108,8 +112,8 @@ class NOSSpider(Spider):
             name = json.dumps((node_city[m + 1:m + 2]).extract(), ensure_ascii=False)
 
             # ---- run_log ----
-            print("市级：" + code[1:len(code) - 1])
-            print("市级：" + name[1:len(name) - 1])
+            logging.debug("市级：" + code[1:len(code) - 1])
+            logging.debug("市级：" + name[1:len(name) - 1])
 
             db = AdministrativeDivisionsPipeline()
             sql = "insert into " + TABLE_CITY + " (" + 'city_code,' + 'city_name,' + 'simple_city_code,' + 'grade' + ") VALUE (" + code[
@@ -125,11 +129,10 @@ class NOSSpider(Spider):
             m = m + 2
 
     """第三级：区县乡级 数据爬取"""
-
-    def parse_thread(self, response, m_year_target=yearTarget):
-        thread = Selector(response)
-        node_county = thread.xpath('//tr[@class="countytr"]/td/a/text()')
-        node_county_href = thread.xpath('//tr[@class="countytr"]/td/a/@href')
+    def parse_third(self, response, m_year_target=yearTarget):
+        third = Selector(response)
+        node_county = third.xpath('//tr[@class="countytr"]/td/a/text()')
+        node_county_href = third.xpath('//tr[@class="countytr"]/td/a/@href')
 
         self.insertIntoCounty(node_county)  # 县区级 代码list
         county_codes = []
@@ -175,8 +178,8 @@ class NOSSpider(Spider):
             name = json.dumps((node_county[m + 1:m + 2]).extract(), ensure_ascii=False)
 
             # ---- run_log ----
-            print("区级：" + code[1:len(code) - 1])
-            print("区级：" + name[1:len(name) - 1])
+            logging.debug("区级：" + code[1:len(code) - 1])
+            logging.debug("区级：" + name[1:len(name) - 1])
 
             db = AdministrativeDivisionsPipeline()
             sql = "insert into " + TABLE_COUNTY + " (" + 'county_code,' + 'county_name,' + 'simple_county_code,' + 'grade' + ") VALUE (" + code[
@@ -192,14 +195,13 @@ class NOSSpider(Spider):
             m = m + 2
 
     """第四级：街道、居委会级 数据爬取"""
-
     def parse_fourth(self, response, m_year_target=yearTarget):
-        thread = Selector(response)
-        node_towntr = thread.xpath('//tr[@class="towntr"]/td/a/text()')
-        node_towntr_href = thread.xpath('//tr[@class="towntr"]/td/a/@href')
+        fourth = Selector(response)
+        node_towntr = fourth.xpath('//tr[@class="towntr"]/td/a/text()')
+        node_towntr_href = fourth.xpath('//tr[@class="towntr"]/td/a/@href')
 
         # ---- run_log ----
-        print("街道：" + json.dumps(node_towntr.extract(), ensure_ascii=False))
+        logging.debug("街道：" + json.dumps(node_towntr.extract(), ensure_ascii=False))
 
         self.insertIntoTown(node_towntr)  # 街道办 代码list
         town_codes = []
@@ -247,8 +249,8 @@ class NOSSpider(Spider):
             name = json.dumps((node_towntr[m + 1:m + 2]).extract(), ensure_ascii=False)
 
             # ---- run_log ----
-            print("街道：" + code[1:len(code) - 1])
-            print("街道：" + name[1:len(name) - 1])
+            logging.debug("街道：" + code[1:len(code) - 1])
+            logging.debug("街道：" + name[1:len(name) - 1])
 
             db = AdministrativeDivisionsPipeline()
             sql = "insert into " + TABLE_TOWN + " (" + 'town_code,' + 'town_name,' + 'simple_town_code,' + 'grade' + ") VALUE (" + code[
@@ -265,10 +267,9 @@ class NOSSpider(Spider):
             m = m + 2
 
     """第五级：社区级 数据爬取"""
-
     def parse_Five(self, response):
-        thread = Selector(response)
-        node_village = thread.xpath('//tr[@class="villagetr"]/td/text()')
+        fifth = Selector(response)
+        node_village = fifth.xpath('//tr[@class="villagetr"]/td/text()')
 
         # ---- run_log ----
         print("社区：" + json.dumps(node_village.extract(), ensure_ascii=False))

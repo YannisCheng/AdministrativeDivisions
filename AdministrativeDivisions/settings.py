@@ -8,18 +8,12 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import datetime
 
 BOT_NAME = 'AdministrativeDivisions'
 
 SPIDER_MODULES = ['AdministrativeDivisions.spiders']
 NEWSPIDER_MODULE = 'AdministrativeDivisions.spiders'
-
-# 设置请求头部，添加url
-# 指定用户终端，否则有些网站会禁止访问，显示403
-DEFAULT_REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;",
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'Northern_Open_Space (+http://www.yourdomain.com)'
@@ -49,6 +43,12 @@ ROBOTSTXT_OBEY = True
 #   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 #   'Accept-Language': 'en',
 # }
+# 设置请求头部，添加url
+# 指定用户终端，否则有些网站会禁止访问，显示403
+DEFAULT_REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;",
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+}
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
@@ -70,9 +70,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'Northern_Open_Space.pipelines.NorthernOpenSpacePipeline': 300,
-# }
+ITEM_PIPELINES = {
+    'AdministrativeDivisions.pipelines.AdministrativeDivisionsPipeline': 300,  # 保存到mysql数据库
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -96,10 +96,6 @@ ROBOTSTXT_OBEY = True
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 FEED_EXPORT_ENCODING = 'utf-8'
 
-ITEM_PIPELINES = {
-    'AdministrativeDivisions.pipelines.AdministrativeDivisionsPipeline': 300,  # 保存到mysql数据库
-}
-
 # Mysql数据库的配置信息
 MYSQL_HOST = 'localhost'
 MYSQL_DB_NAME = 'area_database'  # 数据库名字，请修改
@@ -108,9 +104,18 @@ MYSQL_PASSWORD = 'Admin_1126'  # 数据库密码，请修改
 MYSQL_PORT = 3306  # 数据库端口
 ENCODE = 'utf8'
 
-# 表名
+# area_database中的table名
 TABLE_PROVINCE = 'province_table'
 TABLE_CITY = 'city_table'
 TABLE_COUNTY = 'county_table'
 TABLE_TOWN = 'town_table'
 TABLE_VILLAGE = 'village_table'
+
+# 仅做测试使用
+TABLE_PROVINCE2 = 'province_table2'
+
+# 控制台日志输出到文件
+# 或者直接在控制台中使用：
+# scrpay crawl spider_name  -s LOG_FILE=all.log
+LOG_FILE = 'log/scrapy_{}.log'.format(datetime.datetime.now())
+LOG_LEVEL = 'DEBUG'

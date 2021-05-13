@@ -55,3 +55,6 @@ mysql配置文件为：`pipelines.py`
 ## 项目运行
 在 `AdministrativeDivisions/AdministrativeDivisions/`目录下运行：`scrapy crawl NOS`.
 运行时间不等，最长的一次为2h。
+
+## 日志输出配置
+在 `settings.py`文件中配置了将 "控制台日志输出至指定文件中"。在执行长时间抓取任务时，可以打开此设置。

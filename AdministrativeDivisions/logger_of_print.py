@@ -1,5 +1,9 @@
 import sys
 
+"""
+print中的内容输出到控制台和自定义日志中
+"""
+
 
 class Logger(object):
     def __init__(self, file_name='crawl_log'):

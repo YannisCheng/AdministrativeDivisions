@@ -1,0 +1,104 @@
+2021-05-13 11:17:03 [scrapy.utils.log] INFO: Scrapy 2.5.0 started (bot: AdministrativeDivisions)
+2021-05-13 11:17:03 [scrapy.utils.log] INFO: Versions: lxml 4.6.3.0, libxml2 2.9.10, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 21.2.0, Python 3.8.5 (default, Nov 17 2020, 07:52:35) - [Clang 11.0.3 (clang-1103.0.32.59)], pyOpenSSL 20.0.1 (OpenSSL 1.1.1k  25 Mar 2021), cryptography 3.4.7, Platform macOS-10.15.7-x86_64-i386-64bit
+2021-05-13 11:17:03 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.selectreactor.SelectReactor
+2021-05-13 11:17:03 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'AdministrativeDivisions',
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'log/scrapy_2021-05-13 11:17:03.274472.log',
+ 'NEWSPIDER_MODULE': 'AdministrativeDivisions.spiders',
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['AdministrativeDivisions.spiders']}
+2021-05-13 11:17:03 [scrapy.extensions.telnet] INFO: Telnet Password: ead1f8eae9a1c845
+2021-05-13 11:17:03 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2021-05-13 11:17:03 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2021-05-13 11:17:03 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2021-05-13 11:17:03 [scrapy.middleware] INFO: Enabled item pipelines:
+['AdministrativeDivisions.pipelines.AdministrativeDivisionsPipeline']
+2021-05-13 11:17:03 [scrapy.core.engine] INFO: Spider opened
+2021-05-13 11:17:03 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2021-05-13 11:17:03 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2021-05-13 11:17:03 [scrapy.core.engine] DEBUG: Crawled (403) <GET http://www.stats.gov.cn/robots.txt> (referer: None)
+2021-05-13 11:17:03 [protego] DEBUG: Rule at line 5 without any user agent to enforce it on.
+2021-05-13 11:17:03 [protego] DEBUG: Rule at line 7 without any user agent to enforce it on.
+2021-05-13 11:17:03 [protego] DEBUG: Rule at line 8 without any user agent to enforce it on.
+2021-05-13 11:17:03 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/index.html> (referer: None)
+2021-05-13 11:17:03 [root] DEBUG: 省级："北京市",11,"11.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："天津市",12,"12.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："河北省",13,"13.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："山西省",14,"14.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："内蒙古自治区",15,"15.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："辽宁省",21,"21.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："吉林省",22,"22.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："黑龙江省",23,"23.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："上海市",31,"31.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："江苏省",32,"32.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："浙江省",33,"33.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："安徽省",34,"34.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："福建省",35,"35.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："江西省",36,"36.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："山东省",37,"37.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："河南省",41,"41.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："湖北省",42,"42.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："湖南省",43,"43.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："广东省",44,"44.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："广西壮族自治区",45,"45.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："海南省",46,"46.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："重庆市",50,"50.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："四川省",51,"51.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："贵州省",52,"52.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："云南省",53,"53.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："西藏自治区",54,"54.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："陕西省",61,"61.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："甘肃省",62,"62.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："青海省",63,"63.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："宁夏回族自治区",64,"64.html"
+2021-05-13 11:17:03 [root] DEBUG: 省级："新疆维吾尔自治区",65,"65.html"
+2021-05-13 11:17:03 [scrapy.core.engine] INFO: Closing spider (finished)
+2021-05-13 11:17:03 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 498,
+ 'downloader/request_count': 2,
+ 'downloader/request_method_count/GET': 2,
+ 'downloader/response_bytes': 3070,
+ 'downloader/response_count': 2,
+ 'downloader/response_status_count/200': 1,
+ 'downloader/response_status_count/403': 1,
+ 'elapsed_time_seconds': 0.373962,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 5, 13, 3, 17, 3, 765986),
+ 'httpcompression/response_bytes': 5437,
+ 'httpcompression/response_count': 1,
+ 'log_count/DEBUG': 36,
+ 'log_count/INFO': 10,
+ 'memusage/max': 52568064,
+ 'memusage/startup': 52568064,
+ 'response_received_count': 2,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/403': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2021, 5, 13, 3, 17, 3, 392024)}
+2021-05-13 11:17:03 [scrapy.core.engine] INFO: Spider closed (finished)
