@@ -38,6 +38,9 @@ class NOSSpider(Spider):
     # 基础配置 - 开发爬取的地址
     start_urls = ["http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/" + yearTarget + "/index.html"]
 
+    # 将print中的内容输出到log文件中。
+    # sys.stdout = Logger('run_log')
+
     """第一级：省级、直辖市 数据爬取"""
 
     def parse(self, response, m_year_target=yearTarget):
@@ -53,7 +56,7 @@ class NOSSpider(Spider):
             # 名称 ："37"
             province_code = province_href[1:3]
 
-            # ---- log ----
+            # ---- run_log ----
             print("省级：" + province_name + ',' + province_code + ',' + province_href)
 
             self.insertIntoProvince(province_code, province_name)
@@ -72,7 +75,7 @@ class NOSSpider(Spider):
         second = Selector(response)
         node_city = second.xpath('//tr[@class="citytr"]/td/a/text()')
 
-        # ---- log ----
+        # ---- run_log ----
         print("市级：")
         print(len(node_city))
         print("市级：" + json.dumps(node_city.extract(), ensure_ascii=False))
@@ -104,7 +107,7 @@ class NOSSpider(Spider):
             code = json.dumps((node_city[m:m + 1]).extract(), ensure_ascii=False)
             name = json.dumps((node_city[m + 1:m + 2]).extract(), ensure_ascii=False)
 
-            # ---- log ----
+            # ---- run_log ----
             print("市级：" + code[1:len(code) - 1])
             print("市级：" + name[1:len(name) - 1])
 
@@ -171,7 +174,7 @@ class NOSSpider(Spider):
             code = json.dumps((node_county[m:m + 1]).extract(), ensure_ascii=False)
             name = json.dumps((node_county[m + 1:m + 2]).extract(), ensure_ascii=False)
 
-            # ---- log ----
+            # ---- run_log ----
             print("区级：" + code[1:len(code) - 1])
             print("区级：" + name[1:len(name) - 1])
 
@@ -195,7 +198,7 @@ class NOSSpider(Spider):
         node_towntr = thread.xpath('//tr[@class="towntr"]/td/a/text()')
         node_towntr_href = thread.xpath('//tr[@class="towntr"]/td/a/@href')
 
-        # ---- log ----
+        # ---- run_log ----
         print("街道：" + json.dumps(node_towntr.extract(), ensure_ascii=False))
 
         self.insertIntoTown(node_towntr)  # 街道办 代码list
@@ -243,7 +246,7 @@ class NOSSpider(Spider):
             code = json.dumps((node_towntr[m:m + 1]).extract(), ensure_ascii=False)
             name = json.dumps((node_towntr[m + 1:m + 2]).extract(), ensure_ascii=False)
 
-            # ---- log ----
+            # ---- run_log ----
             print("街道：" + code[1:len(code) - 1])
             print("街道：" + name[1:len(name) - 1])
 
@@ -267,7 +270,7 @@ class NOSSpider(Spider):
         thread = Selector(response)
         node_village = thread.xpath('//tr[@class="villagetr"]/td/text()')
 
-        # ---- log ----
+        # ---- run_log ----
         print("社区：" + json.dumps(node_village.extract(), ensure_ascii=False))
 
         n = len(node_village)
@@ -277,7 +280,7 @@ class NOSSpider(Spider):
             simple_code = json.dumps((node_village[m + 1:m + 2]).extract(), ensure_ascii=False)
             name = json.dumps((node_village[m + 2:m + 3]).extract(), ensure_ascii=False)
 
-            # ---- log ----
+            # ---- run_log ----
             print("社区：" + code[1:len(code) - 1])
             print("社区：" + simple_code[1:len(simple_code) - 1])
             print("社区：" + name[1:len(name) - 1])
