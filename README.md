@@ -11,7 +11,7 @@
 
 - [基础地址](http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/)
 
-- [数据库数据量准确性确认地址](结果确认：http://data.stats.gov.cn/easyquery.htm?cn=C01)
+- [数据库数据量准确性确认地址](http://data.stats.gov.cn/easyquery.htm?cn=C01)
 
 
 
