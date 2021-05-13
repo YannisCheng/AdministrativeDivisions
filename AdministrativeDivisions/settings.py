@@ -96,7 +96,7 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 FEED_EXPORT_ENCODING = 'utf-8'
 
-# Mysql数据库的配置信息
+# Mysql数据库的配置信息 --------------------
 MYSQL_HOST = 'localhost'
 MYSQL_DB_NAME = 'area_database'  # 数据库名字，请修改
 MYSQL_USER = 'root'  # 数据库账号，请修改
@@ -104,18 +104,28 @@ MYSQL_PASSWORD = 'Admin_1126'  # 数据库密码，请修改
 MYSQL_PORT = 3306  # 数据库端口
 ENCODE = 'utf8'
 
-# area_database中的table名
+# area_database中的table名 --------------
 TABLE_PROVINCE = 'province_table'
 TABLE_CITY = 'city_table'
 TABLE_COUNTY = 'county_table'
 TABLE_TOWN = 'town_table'
 TABLE_VILLAGE = 'village_table'
 
-# 仅做测试使用
+# 仅做测试使用 ---------------------------
 TABLE_PROVINCE2 = 'province_table2'
 
-# 控制台日志输出到文件
+# 控制台日志输出到文件 --------------------
 # 或者直接在控制台中使用：
 # scrpay crawl spider_name  -s LOG_FILE=all.log
-LOG_FILE = 'log/scrapy_{}.log'.format(datetime.datetime.now())
-LOG_LEVEL = 'DEBUG'
+#LOG_FILE = 'log/scrapy_{}.log'.format(datetime.datetime.now())
+#LOG_LEVEL = 'DEBUG'
+
+# spider配置 ---------------------------
+# 基础配置 - 唯一名称
+SPIDER_NAME = "NOS"
+# 待爬取的年份
+SPIDER_TARGET_YEAR = "2020"
+# 基础配置 - 允许访问的域名
+SPIDER_DOMAINS = ["www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm"]
+# 基础配置 - 开发爬取的地址
+SPIDER_START_URLS = ["http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/" + SPIDER_TARGET_YEAR + "/index.html"]
