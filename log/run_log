@@ -1744,3 +1744,50 @@
 社区："圪堵村委会"
 社区：208
 >>>>>>>>>>>>>>>>>>>>>>
+
+
+>>>>>>>>>>>>>>>>>>>>>> 2021-05-13 17:58:31 周四
+2021-05-13 17:55:28 [root] DEBUG: 社区："140105007015"
+2021-05-13 17:55:28 [root] DEBUG: 社区："星河湾社区居委会"
+2021-05-13 17:55:28 [root] DEBUG: 社区："140105007016"
+2021-05-13 17:55:28 [root] DEBUG: 社区："康馨苑社区居委会"
+2021-05-13 17:55:28 [scrapy.core.engine] INFO: Closing spider (finished)
+2021-05-13 17:55:28 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/exception_count': 8032,
+ 'downloader/exception_type_count/twisted.web._newclient.ResponseNeverReceived': 8032,
+ 'downloader/request_bytes': 25944058,
+ 'downloader/request_count': 52560,
+ 'downloader/request_method_count/GET': 52560,
+ 'downloader/response_bytes': 84048216,
+ 'downloader/response_count': 44528,
+ 'downloader/response_status_count/200': 44453,
+ 'downloader/response_status_count/302': 72,
+ 'downloader/response_status_count/403': 1,
+ 'downloader/response_status_count/404': 2,
+ 'elapsed_time_seconds': 7393.274459,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2021, 5, 13, 9, 55, 28, 993132),
+ 'httpcompression/response_bytes': 183196341,
+ 'httpcompression/response_count': 44455,
+ 'httperror/response_ignored_count': 2,
+ 'httperror/response_ignored_status_count/404': 2,
+ 'log_count/DEBUG': 1438498,
+ 'log_count/ERROR': 338,
+ 'log_count/INFO': 135,
+ 'memusage/max': 76046336,
+ 'memusage/startup': 52494336,
+ 'request_depth_max': 4,
+ 'response_received_count': 44456,
+ 'retry/count': 7872,
+ 'retry/max_reached': 160,
+ 'retry/reason_count/twisted.web._newclient.ResponseNeverReceived': 7872,
+ 'robotstxt/request_count': 1,
+ 'robotstxt/response_count': 1,
+ 'robotstxt/response_status_count/403': 1,
+ 'scheduler/dequeued': 52559,
+ 'scheduler/dequeued/memory': 52559,
+ 'scheduler/enqueued': 52559,
+ 'scheduler/enqueued/memory': 52559,
+ 'spider_exceptions/IntegrityError': 18,
+ 'start_time': datetime.datetime(2021, 5, 13, 7, 52, 15, 718673)}
+2021-05-13 17:55:28 [scrapy.core.engine] INFO: Spider closed (finished)
